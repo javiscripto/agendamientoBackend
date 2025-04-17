@@ -1,4 +1,4 @@
-import usersModel from "../models/test.model.js";
+/* import usersModel from "../mongo/models/test.model.js";
 
 export default class Users {
   constructor() { }
@@ -21,4 +21,13 @@ export default class Users {
       console.error("ha ocurrido un error al obtener los usuarios: ", error);
     }
   };
-}
+} */
+
+/*   📂 controllers ---2
+ ┃ ┗ 📄 user.controller.js   → Recibe la request y llama al service
+ ┣ 📂 services --------4
+ ┃ ┗ 📄 user.service.js      → Procesa lógica de negocio y usa el modelo
+ ┣ 📂 models ----------1
+ ┃ ┗ 📄 user.model.js        → Modelo de mongoose
+ ┗ 📂 routes ----------3
+   ┗ 📄 user.router.js       → Define la ruta y qué controller usa */
