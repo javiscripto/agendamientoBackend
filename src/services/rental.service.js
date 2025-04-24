@@ -42,7 +42,7 @@ export default class RentalService {
       return rental;
     } catch (error) {
       console.error("service error:", error);
-      throw new Error("service error:", error);
+      throw new Error("service error:" + error);
     }
   };
 
@@ -54,8 +54,8 @@ export default class RentalService {
       }
       // actualizar la disponibilidad del departamento
       await apartmentModel.findByIdAndUpdate(rentalToDelete.property, {
-        isAvailable: true
-      })
+        isAvailable: true,
+      });
       return rentalToDelete;
     } catch (error) {
       console.error("Error al eliminar el arriendo: ", error);
