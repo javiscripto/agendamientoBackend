@@ -52,6 +52,10 @@ export default class RentalService {
       if (!rentalToDelete) {
         throw new Error("Arriendo no encontrado");
       }
+      // actualizar la disponibilidad del departamento
+      await apartmentModel.findByIdAndUpdate(rentalToDelete.property, {
+        isAvailable: true
+      })
       return rentalToDelete;
     } catch (error) {
       console.error("Error al eliminar el arriendo: ", error);
