@@ -1,10 +1,20 @@
 import rentalModel from "../mongo/models/rental.models.js";
+import apartmentModel from "../mongo/models/apartment.models.js";
 
 export default class RentalService {
   constructor() { }
 
   createRental = async (rentalData) => {
     try {
+      const apartment = await apartmentModel.findById(rentalData.property);
+      if (!apartment) {
+        throw new Error("Departamento no encontrado");
+      } else if (apartment.isAvailable === false) {
+        throw new Error("Departamento no disponible");
+      }
+      //actualizar la disponibilidad del departamento
+      apartment.isAvailable = false;
+      await apartment.save();
       const newRental = await rentalModel.create(rentalData);
       return newRental;
     } catch (error) {
