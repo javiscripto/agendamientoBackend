@@ -14,6 +14,7 @@ import logger from "../logger/winston.js";
 // 3. Routers
 import paymentRouter from "./routes/payment.router.js";
 import apartmentRouter from "./routes/apartment.router.js";
+import rentalRouter from "./routes/rental.router.js";
 
 // 4. Configuración de Express
 const app = express();
@@ -48,3 +49,4 @@ app.use(express.urlencoded({ extended: false }));
 // 9. Uso de routers
 app.use("/api/payment", paymentRouter);
 app.use("/api/apartments", apartmentRouter);
+app.use("/api/rental", rentalRouter);

@@ -9,8 +9,8 @@ const rentalSchema = new mongoose.Schema({
     ref: "Property",
     required: true,
   },
-  tentant: { type: mongoose.Schema.Types.ObjectId, ref: "Gest" },
-  price: { type: Number, required: true },
+  // tentant: { type: mongoose.Schema.Types.ObjectId, ref: "Gest" },
+  //price: { type: Number, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
 });

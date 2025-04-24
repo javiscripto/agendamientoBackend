@@ -1,40 +1,51 @@
 import rentalModel from "../mongo/models/rental.models.js";
-class ValidateData {
-  constructor({ startDate, endDate, price, tentant, property }) {
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.price = price;
-    this.tentant = tentant;
-    this.property = property;
-  }
-  validate() {
-    if (
-      !this.startDate ||
-      !this.endDate ||
-      !this.price ||
-      !this.tentant ||
-      !this.property
-    ) {
-      throw new Error("Faltan datos");
-    }
-    if (typeof this.price !== "number" || this.price <= 0) {
-      throw new Error("El precio debe ser un numero o el valor mayor a 0");
-    }
-  }
-}
 
 export default class RentalService {
   constructor() { }
 
-  validateData = new ValidateData(rentalData);
-
-  newRental = async (rentalData) => {
+  createRental = async (rentalData) => {
     try {
-      validateData.validate();
       const newRental = await rentalModel.create(rentalData);
       return newRental;
     } catch (error) {
-      console.error("ha ocurrido un error: ", error);
+      console.error("Error al crear el arriendo: ", error);
+      throw new Error("service error:" + error);
+    }
+  };
+
+  getAllRentals = async () => {
+    try {
+      const allRentals = await rentalModel.find().populate("property");
+      return allRentals;
+    } catch (error) {
+      console.error("Error al obtener los arriendos: ", error);
+      throw new Error("service error:" + error);
+    }
+  };
+
+  getRentalById = async (rid) => {
+    try {
+      const rental = await rentalModel.findById(rid).populate("property");
+      if (!rental) {
+        throw new Error("Arriendo no encontrado");
+      }
+      return rental;
+    } catch (error) {
+      console.error("service error:", error);
+      throw new Error("service error:", error);
+    }
+  };
+
+  deleteRental = async (rid) => {
+    try {
+      const rentalToDelete = await rentalModel.findByIdAndDelete(rid);
+      if (!rentalToDelete) {
+        throw new Error("Arriendo no encontrado");
+      }
+      return rentalToDelete;
+    } catch (error) {
+      console.error("Error al eliminar el arriendo: ", error);
+      throw new Error("service error:" + error);
     }
   };
 }
