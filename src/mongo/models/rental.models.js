@@ -6,7 +6,7 @@ const rentalCollection = "Rental";
 const rentalSchema = new mongoose.Schema({
   property: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "property",
+    ref: "Property",
     required: true,
   },
   tentant: { type: mongoose.Schema.Types.ObjectId, ref: "Gest" },
