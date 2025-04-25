@@ -12,9 +12,14 @@ export default class RentalService {
       } else if (apartment.isAvailable === false) {
         throw new Error("Departamento no disponible");
       }
+      //calcular el precio de arriendo (diferencia entre startDate y endDate)
+      const startDate = new Date(rentalData.startDate);
+      const endDate = new Date(rentalData.endDate);
+      const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+      rentalData.days = days;
+      rentalData.price = days * apartment.price;
+      console.log(`El precio es: ${rentalData.price} por ${days} días`);
       //actualizar la disponibilidad del departamento
-      apartment.isAvailable = false;
-      await apartment.save();
       const newRental = await rentalModel.create(rentalData);
       return newRental;
     } catch (error) {
