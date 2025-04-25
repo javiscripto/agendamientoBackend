@@ -40,7 +40,12 @@ class ApartmentService {
   // funcion para obtener un departamento por id
   async getApartmentById(aid) {
     try {
-      const apartmentById = await apartmentModel.findById(aid);
+      const apartmentById = await apartmentModel.findById(aid).populate({
+        path: "rentals",
+        match: { endDate: { $gte: new Date() } }, //greater than or equal to, muestra solo fechas futuras
+        select: "startDate endDate -_id",
+      });
+
       if (!apartmentById) {
         throw new Error("Departamento no encontrado");
       }
