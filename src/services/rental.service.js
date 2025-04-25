@@ -18,8 +18,6 @@ export default class RentalService {
       const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
       rentalData.days = days;
       rentalData.price = days * apartment.price;
-      console.log(`El precio es: ${rentalData.price} por ${days} días`);
-      //actualizar la disponibilidad del departamento
       const newRental = await rentalModel.create(rentalData);
       return newRental;
     } catch (error) {
