@@ -8,7 +8,7 @@ import {
 
 const router = Router();
 
-router.get("/checkout", createSesion);
+router.post("/checkout", createSesion);
 router.get("/success", success);
 router.get("/cancel", cancel);
 
