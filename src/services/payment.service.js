@@ -18,7 +18,7 @@ export default class PaymentService {
               },
 
               currency: "usd",
-              unit_amount: paymentData.price * 10 * paymentData.quantity, //100.00
+              unit_amount: paymentData.price * 100, //se multiplica para efectos de conversion
             },
             quantity: paymentData.quantity, // la cantidad de dias
           },
