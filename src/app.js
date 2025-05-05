@@ -42,11 +42,11 @@ app.set("views", path.join(__dirname, "views"));
 
 // 8. Middlewares de Express
 app.use(cors());
+app.use("/api/payment", paymentRouter);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // 9. Uso de routers
-app.use("/api/payment", paymentRouter);
 app.use("/api/apartments", apartmentRouter);
 app.use("/api/rental", rentalRouter);
