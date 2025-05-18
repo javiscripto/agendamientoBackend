@@ -32,11 +32,7 @@ export const handleStripeWebhook = async (req, res) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    // Aquí puedes acceder a los datos de la transacción
     console.log("✅ Pago exitoso:", session);
-
-    // Ejemplo: guardar en la base de datos
-    // saveTransaction(session);
 
     res.status(200).send();
   } else {
