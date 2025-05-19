@@ -15,6 +15,12 @@ const rentalSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+      default: "pending",
+    },
   },
   {
     timestamps: true,
