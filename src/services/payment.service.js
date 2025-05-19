@@ -26,6 +26,9 @@ export default class PaymentService {
         mode: "payment",
         success_url: "http://localhost:3000/api/payment/success",
         cancel_url: "http://localhost:3000/api/payment/cancel",
+        metadata: {
+          reservationId: paymentData.reservationId,
+        },
       });
       return session.url;
     } catch (error) {
