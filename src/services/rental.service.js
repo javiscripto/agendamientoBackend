@@ -49,6 +49,26 @@ export default class RentalService {
     }
   };
 
+  confirmRental = async (rid) => {
+    //metodo llamado desde webhook al momento de confirmar el pago
+    try {
+      const rentalToUpdate = await rentalModel.findByIdAndUpdate(
+        rid,
+        { status: "approved" },
+        { new: true },
+      );
+
+      if (!rentalToUpdate) {
+        throw new Error("Arriendo no encontrado");
+      }
+
+      return rentalToUpdate;
+    } catch (error) {
+      console.error("Error al actualizar el arriendo: ", error);
+      throw new Error("service error:" + error);
+    }
+  };
+
   deleteRental = async (rid) => {
     try {
       const rentalToDelete = await rentalModel.findByIdAndDelete(rid);
