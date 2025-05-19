@@ -1,9 +1,11 @@
 import PaymentService from "../services/payment.service.js ";
 import stripe from "stripe";
 import dotenv from "dotenv";
+import RentalService from "../services/rental.service.js";
 dotenv.config();
 
 const paymentService = new PaymentService();
+const rentalService = new RentalService();
 
 export const createSesion = async (req, res) => {
   try {
@@ -31,6 +33,9 @@ export const handleStripeWebhook = async (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
+    //confirmar la reservacion y actualizar el estado
+    const reservationId = event.data.object.metadata.reservationId;
+    await rentalService.confirmRental(reservationId);
 
     console.log("✅ Pago exitoso:", session);
 
