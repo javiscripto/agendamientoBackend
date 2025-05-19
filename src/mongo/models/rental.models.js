@@ -19,7 +19,6 @@ const rentalSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "approved", "rejected"],
       default: "pending",
-      default: "pending",
     },
   },
   {
