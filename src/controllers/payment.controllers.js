@@ -2,6 +2,7 @@ import PaymentService from "../services/payment.service.js ";
 import stripe from "stripe";
 import dotenv from "dotenv";
 import RentalService from "../services/rental.service.js";
+import { transporter } from "../mailer/mailer.js";
 dotenv.config();
 
 const paymentService = new PaymentService();
@@ -37,7 +38,23 @@ export const handleStripeWebhook = async (req, res) => {
     const reservationId = event.data.object.metadata.reservationId;
     await rentalService.confirmRental(reservationId);
 
-    console.log("✅ Pago exitoso:", session);
+    console.log("✅ Pago exitoso:", session.customer_details);
+    //notificar al usuario
+    const email = session.customer_details.email;
+    const customer = session.customer_details.name;
+    const mailOptions = {
+      to: email,
+      from: process.env.MAILER_USER,
+      subject: "Arriendo: pago exitoso",
+      text: `estimado ${customer}, su arriendo ha sido confirmado con exito, gracias por elegirnos`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error al enviar el correo:", error);
+      } else {
+        console.log("Correo enviado:", info.response);
+      }
+    });
 
     res.status(200).send();
   } else {
