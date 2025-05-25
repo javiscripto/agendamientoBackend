@@ -34,7 +34,6 @@ export const getAllRentals = async (req, res) => {
   }
 };
 
-
 export const getRentalById = async (req, res) => {
   try {
     const { rid } = req.params;
@@ -42,12 +41,12 @@ export const getRentalById = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "arriendo encontrado",
-      payload: rental
+      payload: rental,
     });
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message })
+    res.status(500).json({ status: "error", error: error.message });
   }
-}
+};
 
 export const deleteRental = async (req, res) => {
   try {
@@ -57,6 +56,18 @@ export const deleteRental = async (req, res) => {
       status: "success",
       message: "Arriendo eliminado con exito",
       payload: deletedRental,
+    });
+  } catch (error) {
+    res.status(500).json({ status: "error", error: error.message });
+  }
+};
+
+export const deleteAllRentals = async (req, res) => {
+  try {
+    await rentalService.deleteAllRentals();
+    res.status(200).json({
+      status: "success",
+      message: "se han eliminado todos los arriendos",
     });
   } catch (error) {
     res.status(500).json({ status: "error", error: error.message });

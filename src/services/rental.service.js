@@ -85,4 +85,17 @@ export default class RentalService {
       throw new Error("service error:" + error);
     }
   };
+
+  deleteAllRentals = async () => {
+    try {
+      //eliminar todos los arriendos
+      const deletedRentals = await rentalModel.deleteMany({
+        status: "pending",
+      });
+      return deletedRentals;
+    } catch (error) {
+      console.error("Error al eliminar los arriendos: ", error);
+      throw new Error("service error:" + error);
+    }
+  };
 }
